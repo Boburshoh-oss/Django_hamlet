@@ -5,6 +5,8 @@
 {% url 'blog' as blog %}
 {% url 'properties' as properties %}
 {% url 'contact' as contact %}
+{% url 'personalE' as personal %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +34,9 @@
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Font Icon -->
+    
 
     <title>
         {% block title %}
@@ -49,13 +54,25 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	        	<li class="nav-item {% if index == request.path %}active{% endif %}" id="indexx"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+            <li class="nav-item {% if index == request.path %}active{% endif %}" id="indexx"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+            
+            {% if user.is_authenticated %}
+              <li class="nav-item {% if index == request.path %}active{% endif %}" ><a href="{{username}}/add" class="nav-link">Add announcement</a></li>
+            
+
+            {% endif %}
+              
 	        	<li class="nav-item {% if properties == request.path %}active{% endif %}" id="properties" ><a href="properties" class="nav-link">Properties</a></li>
             <li class="nav-item {% if agents == request.path %}active{% endif %}" id="agents" ><a href= "{% url 'agents' %}"  class="nav-link">Agents</a></li>
             <li class="nav-item {% if blog == request.path %}active{% endif %}" id='blog' ><a href='blog'  class="nav-link">Blog</a></li>
             <li class="nav-item {% if about == request.path %}active{% endif %}" id='about' ><a href='about' class="nav-link">About</a></li>
             <li class="nav-item {% if contact == request.path %}active{% endif %}" id='contact' ><a href="contact" class="nav-link">Contact</a></li>	          
-	          <li class="nav-item cta"><a href="#" class="nav-link"><span>Sign Up</span></a></li>
+
+            {% if user.is_authenticated or index == request.path or properties == request.path or agents == request.path or blog == request.path or about == request.path or contact == request.path%}
+            <li class="nav-item cta"><a href="{% url 'sign_in' %}" class="nav-link"><span>Sign In</span></a></li>
+            {% else %}
+            <li class="nav-item cta"><a href="{% url 'sign_out' %}" class="nav-link"><span>Sign Out</span></a></li>
+            {% endif %}
 	        </ul>
 	      </div>
 	    </div>
@@ -161,87 +178,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="{% static 'js/google-map.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
-  <script>
-      let x = document.getElementById("indexx");
-      let y = document.getElementById("agents");
-      let z = document.getElementById("blog");
-      let k = document.getElementById("properties");
-      let u = document.getElementById("about");
-      let i = document.getElementById("contact");
-     
-      y.addEventListener("click", function two() {
-        x.classList.remove('active');
-        u.classList.remove('active');
-        z.classList.remove("active");
-        k.classList.remove("active");
-        y.classList.add("active"); 
-        i.classList.remove("active");   
-      });
-    /* if (window.location.href == "http://127.0.0.1:8000/about"){
-      x.classList.remove('active');
-      u.classList.add('active');
-      z.classList.remove("active");
-      k.classList.remove("active");
-      y.classList.remove("active"); 
-      i.classList.remove("active");     
-    };
-    else if (window.location.href == "http://127.0.0.1:8000") {
-      x.classList.add('active');
-      u.classList.remove('active');
-      z.classList.remove("active");
-      k.classList.remove("active");
-      y.classList.remove("active"); 
-      i.classList.remove("active");  
-    }
-    function myFunction() {
-        x.classList.add("active");
-        z.classList.remove("active");
-        k.classList.remove("active");
-        y.classList.remove("active"); 
-        u.classList.remove("active");  
-        i.classList.remove("active");         
-    };
-    function youFunction() {
-        x.classList.remove("active");
-        z.classList.add("active");
-        k.classList.remove("active");
-        y.classList.remove("active");  
-        u.classList.remove("active");  
-        i.classList.remove("active");      
-    }
-    function weFunction() {
-        x.classList.remove("active");
-        z.classList.remove("active");
-        k.classList.add("active");
-        y.classList.remove("active");
-        u.classList.remove("active");  
-        i.classList.remove("active");     
-    }
-    function areFunction() {
-        x.classList.remove("active");
-        z.classList.remove("active");
-        k.classList.remove("active");
-        y.classList.add("active");  
-        u.classList.remove("active");  
-        i.classList.remove("active");       
-    }
-    function isFunction() {
-        x.classList.remove("active");
-        z.classList.remove("active");
-        k.classList.remove("active");
-        y.classList.remove("active");  
-        u.classList.add("active");  
-        i.classList.remove("active");       
-    }
-    function amFunction() {
-        x.classList.remove("active");
-        z.classList.remove("active");
-        k.classList.remove("active");
-        y.classList.remove("active");  
-        u.classList.remove("active");  
-        i.classList.add("active");       
-    } */
-  </script>
+  
   
 </body>
 </html>

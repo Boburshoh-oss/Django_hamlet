@@ -180,87 +180,87 @@
         </div>
         <div class="row">
         	<div class="col-md-12">
-            <div class="carousel-properties owl-carousel">
-				{% for i in announcements %}
-            	<div class="item">
-            		<div class="project">
-		    					<div class="img">
-				    				<img src="{{i.imagae.url}}" class="img-fluid" alt="Colorlib Template">
-				    				<div class="text">
-				    					<span>{{i.Property_Type}}</span>
-				    					<h3><a href="properties">{{i.Agents}} <br> Subdivision</a></h3>
-				    				</div>
-			    				</div>
-			    				<div class="desc pt-3">
-			    					<h4 class="price">${{i.Price}}</h4>
-										<p class="h-info"><span class="location">{{i.location}}</span> <span class="details">&mdash; {{i.Beds}}bds, {{i.Bathroom}}bath</span></p>
-			    				</div>
-		    				</div>
-            	</div>
-				{% endfor %}
-            	<!--<div class="item">
-            		<div class="project">
-		    					<div class="img">
-				    				<img src="{% static 'images/work-2.jpg' %}" class="img-fluid" alt="Colorlib Template">
-				    				<div class="text">
-				    					<span>Sale</span>
-				    					<h3><a href="properties">Fatima <br> Subdivision</a></h3>
-				    				</div>
-			    				</div>
-			    				<div class="desc pt-3">
-			    					<h4 class="price">$120,000</h4>
-										<p class="h-info"><span class="location">New York</span> <span class="details">&mdash; 3bds, 2bath</span></p>
-			    				</div>
-		    				</div>
-            	</div>
-            	<div class="item">
-            		<div class="project">
-		    					<div class="img">
-				    				<img src="{% static 'images/work-3.jpg' %}" class="img-fluid" alt="Colorlib Template">
-				    				<div class="text">
-				    					<span>Sale</span>
-				    					<h3><a href="properties">Fatima <br> Subdivision</a></h3>
-				    				</div>
-			    				</div>
-			    				<div class="desc pt-3">
-			    					<h4 class="price">$120,000</h4>
-										<p class="h-info"><span class="location">New York</span> <span class="details">&mdash; 3bds, 2bath</span></p>
-			    				</div>
-		    				</div>
-            	</div>
-            	<div class="item">
-            		<div class="project">
-		    					<div class="img">
-				    				<img src="{% static 'images/work-4.jpg' %}" class="img-fluid" alt="Colorlib Template">
-				    				<div class="text">
-				    					<span>Sale</span>
-				    					<h3><a href="{% static 'properties.html' %}">Fatima <br> Subdivision</a></h3>
-				    				</div>
-			    				</div>
-			    				<div class="desc pt-3">
-			    					<h4 class="price">$120,000</h4>
-										<p class="h-info"><span class="location">New York</span> <span class="details">&mdash; 3bds, 2bath</span></p>
-			    				</div>
-		    				</div>
-            	</div>
-            	<div class="item">
-            		<div class="project">
-		    					<div class="img">
-				    				<img src="{% static 'images/work-5.jpg' %}" class="img-fluid" alt="Colorlib Template">
-				    				<div class="text">
-				    					<span>Sale</span>
-				    					<h3><a href="properties">Fatima <br> Subdivision</a></h3>
-				    				</div>
-			    				</div>
-			    				<div class="desc pt-3">
-			    					<h4 class="price">$120,000</h4>
-										<p class="h-info"><span class="location">New York</span> <span class="details">&mdash; 3bds, 2bath</span></p>
-			    				</div>
-		    				</div>
-            	</div>-->
-            </div>
-        </div>
-			</div>
+				<div class="carousel-properties owl-carousel">
+					{% for i in announcements %}
+					<div class="item">
+						<div class="project">
+									<div class="img">
+										<img src="{{i.imagae.url}}" style="height: 400px;" class="img-fluid" alt="Colorlib Template">
+										<div class="text">
+											<span>{{i.type}}</span>
+											<h3><a href="properties">{{i.Agents}} <br>{{i.date}}</a></h3>
+										</div>
+									</div>
+									<div class="desc pt-3">
+										<h4 class="price">${{i.Price}}</h4>
+											<p class="h-info"><span class="location">{{i.location}}</span> <span class="details">&mdash; {{i.Beds}}bds, {{i.Bathroom}}bath</span></p>
+									</div>
+								</div>
+					</div>
+					{% endfor %}
+					<!--<div class="item">
+						<div class="project">
+									<div class="img">
+										<img src="{% static 'images/work-2.jpg' %}" class="img-fluid" alt="Colorlib Template">
+										<div class="text">
+											<span>Sale</span>
+											<h3><a href="properties">Fatima <br> Subdivision</a></h3>
+										</div>
+									</div>
+									<div class="desc pt-3">
+										<h4 class="price">$120,000</h4>
+											<p class="h-info"><span class="location">New York</span> <span class="details">&mdash; 3bds, 2bath</span></p>
+									</div>
+								</div>
+					</div>
+					<div class="item">
+						<div class="project">
+									<div class="img">
+										<img src="{% static 'images/work-3.jpg' %}" class="img-fluid" alt="Colorlib Template">
+										<div class="text">
+											<span>Sale</span>
+											<h3><a href="properties">Fatima <br> Subdivision</a></h3>
+										</div>
+									</div>
+									<div class="desc pt-3">
+										<h4 class="price">$120,000</h4>
+											<p class="h-info"><span class="location">New York</span> <span class="details">&mdash; 3bds, 2bath</span></p>
+									</div>
+								</div>
+					</div>
+					<div class="item">
+						<div class="project">
+									<div class="img">
+										<img src="{% static 'images/work-4.jpg' %}" class="img-fluid" alt="Colorlib Template">
+										<div class="text">
+											<span>Sale</span>
+											<h3><a href="{% static 'properties.html' %}">Fatima <br> Subdivision</a></h3>
+										</div>
+									</div>
+									<div class="desc pt-3">
+										<h4 class="price">$120,000</h4>
+											<p class="h-info"><span class="location">New York</span> <span class="details">&mdash; 3bds, 2bath</span></p>
+									</div>
+								</div>
+					</div>
+					<div class="item">
+						<div class="project">
+									<div class="img">
+										<img src="{% static 'images/work-5.jpg' %}" class="img-fluid" alt="Colorlib Template">
+										<div class="text">
+											<span>Sale</span>
+											<h3><a href="properties">Fatima <br> Subdivision</a></h3>
+										</div>
+									</div>
+									<div class="desc pt-3">
+										<h4 class="price">$120,000</h4>
+											<p class="h-info"><span class="location">New York</span> <span class="details">&mdash; 3bds, 2bath</span></p>
+									</div>
+								</div>
+					</div>-->
+				</div>
+        	</div>
+		</div>
 		</section>
 
     <section class="ftco-section ftco-no-pb">
@@ -315,32 +315,32 @@
 			</div>
 		</section>
 
-		<section class="ftco-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="heading-section mb-5 ftco-animate">
-	            <h2 class="mb-4">Welcome to Hamlet A Real Estate Agency</h2>
-	            <p>Far far away, behind the word mountains, far from the countries</p>
-	          </div>
-	          <div class="about-img img p-5 d-flex align-items-center" style="background-image: url('{% static 'images/bg_1.jpg' %}');">
-	          	<div class="about-div">
-	          		<h4 style="color:white;">Buying A Properties the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life.</h4>
-	          		<p class="mb-0"><a href="#" class="btn-custom-2">Read more <span class="ml-2 icon-long-arrow-right"></span></a></p>
-	          	</div>
-	          </div>
-					</div>
-					<div class="col-md-6 d-flex">
-	          <div class="img img-3 p-5 d-flex align-self-stretch border" style="background-image: url('{% static 'images/about-3.jpg' %}');">
-	          	<div class="about-div bg-darken about-wrap">
-	          		<h4 style="color:white;">Renting A Properties Pointing has no control about the blind texts it is an almost unorthographic life.</h4>
-	          		<p class="mb-0"><a href="#" class="btn-custom-2">Read more <span class="ml-2 icon-long-arrow-right"></span></a></p>
-	          	</div>
-	          </div>
-					</div>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="heading-section mb-5 ftco-animate">
+	        <h2 class="mb-4">Welcome to Hamlet A Real Estate Agency</h2>
+	        <p>Far far away, behind the word mountains, far from the countries</p>
+	      </div>
+	      <div class="about-img img p-5 d-flex align-items-center" style="background-image: url('{% static 'images/bg_1.jpg' %}');">
+	       	<div class="about-div">
+	      		<h4 style="color:white;">Buying A Properties the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life.</h4>
+	      		<p class="mb-0"><a href="#" class="btn-custom-2">Read more <span class="ml-2 icon-long-arrow-right"></span></a></p>
+	      	</div>
+	      </div>
+				</div>
+				<div class="col-md-6 d-flex">
+	      <div class="img img-3 p-5 d-flex align-self-stretch border" style="background-image: url('{% static 'images/about-3.jpg' %}');">
+	      	<div class="about-div bg-darken about-wrap">
+	      		<h4 style="color:white;">Renting A Properties Pointing has no control about the blind texts it is an almost unorthographic life.</h4>
+	      		<p class="mb-0"><a href="#" class="btn-custom-2">Read more <span class="ml-2 icon-long-arrow-right"></span></a></p>
+	      	</div>
+	      </div>
 				</div>
 			</div>
-		</section>
+		</div>
+	</section>
 
 
     <section class="ftco-section ftco-no-pt testimony-section">
@@ -549,22 +549,6 @@
         </div>
     	</div>
     </section>
-	<script>
-	  let x = document.getElementById("indexx");
-      let y = document.getElementById("agents");
-      let z = document.getElementById("blog");
-      let k = document.getElementById("properties");
-      let u = document.getElementById("about");
-      let i = document.getElementById("contact");
-      x.addEventListener("click", function one() {
-        x.classList.add('active');
-        u.classList.remove('active');
-        z.classList.remove("active");
-        k.classList.remove("active");
-        y.classList.remove("active"); 
-        i.classList.remove("active");   
-      });
-	</script>
 {% endblock content %}
     
     
