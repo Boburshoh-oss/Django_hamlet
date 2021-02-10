@@ -12,7 +12,7 @@ def sign_up(request):
         if register_form.is_valid():
             first_name=register_form.cleaned_data['first_name']
             last_name=register_form.cleaned_data['last_name']
-            email=register_form.cleaned_data['password1']
+            email=register_form.cleaned_data['email']
             username=register_form.cleaned_data['username']
             password1=register_form.cleaned_data['password1']
             password2=register_form.cleaned_data['password2']

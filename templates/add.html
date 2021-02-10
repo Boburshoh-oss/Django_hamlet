@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Add announcement {% endblock %}
+{% block content %}
+
+
+    <div style="padding: 50px;"></div>
+    {% for i in user  %}
+    <h1>Hurmatli {{i.first_name}} siz bu yerda o'z eloningizni joylashtirishingiz mumkin </h1>
+    {% endfor %}
+    <form method="POST"  style="width: 400px; margin: 0 auto;">
+        {% csrf_token %}
+        <label for="title_id">Title</label>
+        <input type="text" name="title" id="title_id"><br>
+
+        <label for="region_id">Region</label>
+        <select name="region" id="region_id" class="region">
+            <option disabled selected>Select the region</option>
+            {% for region in regions %}
+            <option value="">{{region.name}}</option>
+            {% endfor %}
+        </select><br>
+        <input type="hidden" name="region_id" id="viloyat_id">
+
+
+        <label for="district_id">District</label>
+        <select name="district" id="district_id">
+            <option disabled selected>Select the district</option>
+        </select><br>
+        <input type="hidden" name="district_id" id="tuman_id">
+
+
+        <label for="location_id">Address</label>
+        <input type="text" name="location" id="address_id"><br>
+
+        <label for="Property_type_id">Property_Type</label>
+        <select name="Property_type" id="type_id">
+            <option disabled selected>Select type</option>
+            {% for type in Property_types %}
+            <option>{{type.name}}</option>
+            {% endfor %}
+        </select><br>
+        <input type="hidden" name="Property_type_id" id="turi_id">
+
+
+        <label for="status_id">Status</label>
+        <select name="status" id="status_id">
+            <option disabled selected>Select status</option>
+            {% for status in statuses %}
+            <option>{{status.name}}</option>
+            {% endfor %}
+        </select><br>
+        <input type="hidden" name="status_id" id="holati_id">
+
+
+        <label for="modum">Modum</label>
+        <textarea name="modum" id="features_id" cols="30" rows="10"></textarea>
+
+        
+        <label for="image_id">Image</label>
+        <input type="file" name="image" id="image_id"><br>
+
+
+        <label for="price_id">Price</label>
+        <input type="text" name="price" id="price_id"><br>
+
+
+    
+        <label for="phone_id">Phone number</label>
+        <input type="number" name="phone" id="phone_id"><br>
+
+<label for="person_name">Agents</label>
+        <input type="text" name="agents" id="person_name_id">
+
+        <button type="submit">OK</button>
+    </form>
+    <div style="padding: 50px;"></div>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script>
+        
+        $(document).ready(function(){
+      var tuman_id = [], selectedRegionIndex = 0;
+      var t = '{{ districts|safe }}';
+      var tumanlar = JSON.parse(t);
+            $("select.region").change(function(){
+                tuman_id = [];
+        selectedRegionIndex = $(".region option:selected").index();
+        if (selectedRegionIndex > 1) selectedRegionIndex++;
+        var tuman = [];
+        for (var i = 0; i < tumanlar.length; i++){
+          if (selectedRegionIndex == tumanlar[i].fields.region_id) {tuman_id.push(tumanlar[i].pk);tuman.push(tumanlar[i].fields.name);}
+                }
+        var tuman_options = "";
+        for (var i = 0; i < tuman.length; i++){
+          tuman_options += "<option>" + tuman[i] + "</option>";
+        }
+        $("#district_id").html(tuman_options);
+        $("#viloyat_id").val(selectedRegionIndex);
+                selectedDistrictIndex = $("#district_id option:selected").index();
+                
+        $("#tuman_id").val(tuman_id[selectedDistrictIndex]);
+      });
+            
+            $("#district_id").change(function(){
+                selectedDistrictIndex = $("#district_id option:selected").index();
+                console.log(selectedDistrictIndex);
+        $("#tuman_id").val(tuman_id[selectedDistrictIndex]);
+            });
+            
+            $("#type_id").change(function(){
+                selectedTypeIndex = $("#type_id option:selected").index();
+        $("#turi_id").val(selectedTypeIndex);
+            });
+            
+            $("#status_id").change(function(){
+                selectedStatusIndex = $("#status_id option:selected").index();
+        $("#holati_id").val(selectedStatusIndex);
+            });
+            
+            $("#view_id").change(function(){
+                selectedViewIndex = $("#view_id option:selected").index();
+        $("#korinish_id").val(selectedViewIndex);
+      });
+        });
+        
+    </script>
+{% endblock %}

@@ -22,6 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('mysite.urls')),
     path('accaounts/',include("accaounts.urls")),
-    path('<username>',include("personal_area.urls"))
+    path('<username>/',include("personal_area.urls"))
 ]
 urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

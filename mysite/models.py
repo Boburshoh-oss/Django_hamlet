@@ -14,10 +14,7 @@ class District(models.Model):
     def __str__(self):
         return self.name
 
-class Type(models.Model):
-    name=models.CharField(max_length=60)
-    def __str__(self):
-        return self.name
+
 
 class Status(models.Model):
     name=models.CharField(max_length=20)
@@ -32,19 +29,22 @@ class View(models.Model):
 
 
 class Announcement(models.Model):
+    title=models.CharField(max_length=40,null=True)
     location=models.CharField(max_length=30)
-    Agents=models.CharField(max_length=25,default='Boburbek')
+    Agents=models.CharField(max_length=25)
     Beds=models.IntegerField(default=1)
     Bathroom=models.IntegerField(default=1)
-    type = models.ForeignKey(View, on_delete=models.CASCADE, null=True)
+    Property_type = models.ForeignKey(View, on_delete=models.CASCADE, null=True)
     Price=models.FloatField()
-    imagae=models.ImageField(upload_to='pictures')
-    foydalanuvchi=models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    image=models.ImageField(upload_to='pictures')
+    author=models.CharField(max_length=40)
     region=models.ForeignKey(Region,on_delete=models.CASCADE, null=True, blank=True)
     district=models.ForeignKey(District,on_delete=models.CASCADE, null=True,blank=True)
     status=models.ForeignKey(Status, on_delete=models.CASCADE, null=True,blank=True)
     phone=models.CharField(max_length=30, null=True)
     date=models.DateField(auto_now=True)
+    modum = models.TextField()
+    
     def __str__(self):
         return self.location
      
