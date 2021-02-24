@@ -8,21 +8,22 @@
     {% for i in user  %}
     <h1>Hurmatli {{i.first_name}} siz bu yerda o'z eloningizni joylashtirishingiz mumkin </h1>
     {% endfor %}
-    <form method="POST"  style="width: 400px; margin: 0 auto;">
-        {% csrf_token %}
+    
+    <form method="POST" enctype="multipart/form-data" style="width: 400px; margin: 0 auto;">
+        {% csrf_token %} 
+        {{form.as_p}}
         <label for="title_id">Title</label>
         <input type="text" name="title" id="title_id"><br>
-
+        <input type="file" name="image" id="image">
         <label for="region_id">Region</label>
         <select name="region" id="region_id" class="region">
             <option disabled selected>Select the region</option>
             {% for region in regions %}
-            <option value="">{{region.name}}</option>
+            <option >{{region.name}}</option>
             {% endfor %}
         </select><br>
         <input type="hidden" name="region_id" id="viloyat_id">
-
-
+        
         <label for="district_id">District</label>
         <select name="district" id="district_id">
             <option disabled selected>Select the district</option>
@@ -56,10 +57,7 @@
         <label for="modum">Modum</label>
         <textarea name="modum" id="features_id" cols="30" rows="10"></textarea>
 
-        
-        <label for="image_id">Image</label>
-        <input type="file" name="image" id="image_id"><br>
-
+    
 
         <label for="price_id">Price</label>
         <input type="text" name="price" id="price_id"><br>

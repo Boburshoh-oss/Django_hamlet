@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mysite',
+    #'mysite.apps.MysiteConfig',
     'accaounts',
+    'personal_area'
 ]
 
 MIDDLEWARE = [
@@ -135,4 +137,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = 'companyinstant'
+
+TIME_INPUT_FORMATS = ('%H:%M',)
 

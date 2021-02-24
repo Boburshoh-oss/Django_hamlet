@@ -1,0 +1,69 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	Add
+{% endblock title %}
+{% block content %}   
+<br> <br>
+<h2>Uploaded model</h2>
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %} 
+    <label for="region_id">Region</label>
+        <select name="region" id="region_id" class="region">
+            <option disabled selected>Select the region</option>
+            {% for region in regions %}
+            <option value="">{{region.name}}</option>
+            {% endfor %}
+        </select><br>
+        <input type="hidden" name="region_id" id="viloyat_id">
+          
+        <label for="district_id">District</label>
+        <select name="district" id="district_id">
+            <option disabled selected>Select the district</option>
+            <!--{% for district in districts  %}
+            <option disabled selected>{{district.name}}</option>
+            {% endfor %}-->
+        </select><br>
+        <input type="hidden" name="district_id" id="tuman_id">
+        {{ form.as_p  }}
+    <button type="submit">Add</button>
+
+</form>
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script>
+        
+$(document).ready(function(){
+    var tuman_id = [], selectedRegionIndex = 0;
+    var t = '{{ districts|safe }}';
+    var tumanlar = JSON.parse(t);
+    $("select.region").change(function(){
+        tuman_id = [];
+        selectedRegionIndex = $(".region option:selected").index();
+        if (selectedRegionIndex > 1) selectedRegionIndex++;
+        var tuman = [];
+        for (var i = 0; i < tumanlar.length; i++){
+            if (selectedRegionIndex == tumanlar[i].fields.region_id) {tuman_id.push(tumanlar[i].pk);tuman.push(tumanlar[i].fields.name);}
+        }
+        var tuman_options = "";
+        for (var i = 0; i < tuman.length; i++){
+        tuman_options += "<option>" + tuman[i] + "</option>";
+        }
+        $("#district_id").html(tuman_options);
+        $("#viloyat_id").val(selectedRegionIndex);
+        selectedDistrictIndex = $("#district_id option:selected").index();
+            
+        $("#tuman_id").val(tuman_id[selectedDistrictIndex]);
+    });
+        
+    $("#district_id").change(function(){
+        selectedDistrictIndex = $("#district_id option:selected").index();
+        console.log(selectedDistrictIndex);
+        $("#tuman_id").val(tuman_id[selectedDistrictIndex]);
+    });    
+    });
+    
+</script>
+<br> <br>
+
+{% endblock %}

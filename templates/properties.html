@@ -218,22 +218,27 @@
 					</div><!-- end -->
 					<div class="col-lg-9">
 		        <div class="row">
+					{% for i in announcements  %}
 		    			<div class="col-md-6 col-lg-4 ftco-animate">
+							
 		    				<div class="project">
 		    					<div class="img">
-				    				<img src="{% static 'images/work-1.jpg' %}" class="img-fluid" alt="Colorlib Template">
+				    				<img src="{{i.image.url}}" style="height: 371px;" class="img-fluid" alt="Colorlib Template">
 				    				<div class="text">
-				    					<span>Sale</span>
-				    					<h3><a href="properties-single">Fatima <br> Subdivision</a></h3>
+				    					<span>{{i.status}}</span>
+				    					<h3><a href="{% url 'properties-single' i.id %}">{{i.author}} <br> {{i.date}} <span>{% if i.time_start %}{{ i.time_start|time:"H:i" }}{% endif %}</span></a></h3>
 				    				</div>
 			    				</div>
 			    				<div class="desc pt-3">
-			    					<h4 class="price">$120,000</h4>
-										<p class="h-info"><span class="location">New York</span> <span class="details">&mdash; 3bds, 2bath</span></p>
+			    					<h4 class="price">${{i.Price}}</h4>
+										<p class="h-info"><span class="location">{{i.region}}</span> <span class="details">&mdash; {{i.Beds}} bds, {{i.Bathroom}} bath</span></p>
+										
 			    				</div>
 		    				</div>
+							
 		    			</div>
-		    			<div class="col-md-6 col-lg-4 ftco-animate">
+					{% endfor %}
+		    			<!--<div class="col-md-6 col-lg-4 ftco-animate">
 		    				<div class="project">
 		    					<div class="img">
 				    				<img src="{% static 'images/work-2.jpg' %}" class="img-fluid" alt="Colorlib Template">
@@ -352,20 +357,28 @@
 										<p class="h-info"><span class="location">New York</span> <span class="details">&mdash; 3bds, 2bath</span></p>
 			    				</div>
 		    				</div>
-		    			</div>
+		    			</div>-->
 		    		</div>
 		    		<div class="row no-gutters my-5">
 		          <div class="col text-center">
 		            <div class="block-27">
+					  {% if announcements.has_other_pages %}
 		              <ul>
-		                <li><a href="#">&lt;</a></li>
-		                <li class="active"><span>1</span></li>
-		                <li><a href="#">2</a></li>
-		                <li><a href="#">3</a></li>
-		                <li><a href="#">4</a></li>
-		                <li><a href="#">5</a></li>
-		                <li><a href="#">&gt;</a></li>
+						{% if announcements.has_previous %}
+						<li><a href="?page={{announcements.previous_page_number}}">&lt;</a></li>
+						{% endif %}
+						{% for i in announcements.paginator.page_range %}
+						{% if announcements.number == i %}
+		                <li class="active"><span>{{i}}</span></li>
+						{% else %}
+		                <li><a href="?page={{i}}">{{i}}</a></li>
+						{% endif %}
+						{% endfor %}
+						{% if announcements.has_next %}
+						<li><a href="?page={{announcements.next_page_number}}">&gt;</a></li>
+						{% endif %}
 		              </ul>
+					  {% endif %}
 		            </div>
 		          </div>
 		        </div>

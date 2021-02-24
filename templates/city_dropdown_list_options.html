@@ -1,0 +1,6 @@
+<label for="cars">Choose a Region:</label>
+<select id="cars" name="districts">
+    {% for city in districts %}
+    <option value="{{ city.pk }}">{{ city.name }}</option>
+    {% endfor %}
+</select>
