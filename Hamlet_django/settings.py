@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'mysite',
     #'mysite.apps.MysiteConfig',
     'accaounts',
-    'personal_area'
+    'personal_area',
+    #'subscribe',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,6 @@ EMAIL_HOST_PASSWORD = 'companyinstant'
 
 TIME_INPUT_FORMATS = ('%H:%M',)
 
+MAILCHIMP_API_KEY='71812d70ae8c3aaa44475a6ccafb3816-us1'
+MAILCHIMP_DATA_CENTER='us1'
+MAILCHIMP_MAIL_LIST_ID='8538b77745'

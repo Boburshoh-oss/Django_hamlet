@@ -1,244 +1,281 @@
 
-    
+
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-	Properties
+Properties
 {% endblock title %}
-{% block content %}    
-    
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('{% static 'images/bg_4.jpg' %}');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-2 bread">Properties</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'index' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Properties <i class="ion-ios-arrow-forward"></i></span></p>
-          </div>
-        </div>
-      </div>
-    </section>
+{% block content %}
 
-    <section class="ftco-section">
-			<div class="container">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('{% static 'images/bg_4.jpg' %}');" data-stellar-background-ratio="0.5">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-center
+			justify-content-center">
+			<div class="col-md-9 ftco-animate text-center">
+				<h1 class="mb-2 bread">Properties</h1>
+				<p class="breadcrumbs"><span class="mr-2"><a href="{% url 'index' %}">Home
+							<i class="ion-ios-arrow-forward"></i></a></span> <span>Properties <i
+							class="ion-ios-arrow-forward"></i></span></p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="ftco-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="search-wrap">
+					<h3>Advance Search</h3>
+					<form action="{% url 'properties' %}" method="GET" class="search-property">
+						<div class="row">
+							<div class="col-md-12 align-items-end ftco-animate">
+								<div class="form-group">
+									<label for="#">Keyword</label>
+									<div class="form-field">
+										<div class="icon"><span class="icon-pencil"></span></div>
+										<input type="text" class="form-control" placeholder="Keyword">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 align-items-end ftco-animate">
+								<div class="form-group">
+									<label for="#">Location</label>
+									<div class="form-field">
+										<div class="icon"><span class="icon-pencil"></span></div>
+										<input type="text" name="keyvalue" class="form-control" placeholder="City/Locality Name">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 align-items-end ftco-animate">
+								<div class="form-group">
+									<label for="#">Property Type</label>
+									<div class="form-field">
+										<div class="select-wrap">
+											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="Propert_Type" id="Property_id" class="form-control">
+												<option>Type</option>
+												<option value="1">Commercial</option>
+												<option value="2">- Office</option>
+												<option value="3">Residential</option>
+												<option value="4">Villa</option>
+												<option value="5">Condominium</option>
+												<option value="6">Apartment</option>
+											</select>
+											<input type="hidden" id="Property" name="PropertType" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 align-items-end ftco-animate">
+								<div class="form-group">
+									<label for="#">Property Status</label>
+									<div class="form-field">
+										<div class="select-wrap">
+											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="select_status" id="prostatus_id" class="form-control">
+												<option  disabled selected>Type</option>												
+												<option  value="3">Sale</option>
+												<option  value="4">Rent</option>											
+											</select>
+											<input type="hidden" id="prostatus" name="prostatus" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 align-items-end ftco-animate">
+								<div class="form-group">
+									<label for="#">Agents</label>
+									<div class="form-field">
+										<div class="select-wrap">
+											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select id="Agents_id" class="form-control">
+												<option  disabled selected>Agents</option>
+												<option value="Abbos">Abbos</option>
+												<option value="Boburbek">Boburbek</option>
+												<option value="Azamat">Azamat</option>
+												<option value="Madina">Madina</option>
+												<option value="Doniyor">Doniyor</option>
+											</select>
+											<input type="hidden" id="Agents" name="Agents" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12 align-items-end ftco-animate">
+								<div class="form-group">
+									<label for="#">Min Beds</label>
+									<div class="form-field">
+										<div class="select-wrap">
+											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select id="Beds_id" class="form-control">
+												<option  disabled selected>Beds</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>
+											<input type="hidden" id="Beds" name="Beds" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 align-items-end ftco-animate">
+								<div class="form-group">
+									<label for="#">Min Bathroom</label>
+									<div class="form-field">
+										<div class="select-wrap">
+											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="" id="Bathroom_id" class="form-control">
+												<option  disabled selected>Bathroom</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>
+											<input type="hidden" id="Bathroom" name="Bathroom" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 align-items-end ftco-animate">
+								<div class="form-group">
+									<label for="#">Min Price</label>
+									<div class="form-field">
+										<div class="select-wrap">
+											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="Price_limit" id="limit_id" class="form-control">
+												<option disabled selected>Min Price</option>
+												<option value="5000">$5,000</option>
+												<option value="1000">$10,000</option>
+												<option value="50000">$50,000</option>
+												<option value="100000">$100,000</option>
+												<option value="200000">$200,000</option>
+												<option value="300000">$300,000</option>
+												<option value="400000">$400,000</option>
+												<option value="500000">$500,000</option>
+												<option value="600000">$600,000</option>
+												<option value="700000">$700,000</option>
+												<option value="800000">$800,000</option>
+												<option value="900000">$900,000</option>
+												<option value="1000000">$1,000,000</option>
+												<option value="2000000">$2,000,000</option>
+											</select>
+											<input type="hidden" id="limit" name="limit" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 align-items-end ftco-animate">
+								<div class="form-group">
+									<label for="#">Max Price</label>
+									<div class="form-field">
+										<div class="select-wrap">
+											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="Price_limit" id="Max_price_id" class="form-control">
+												<option disabled selected>Max Price</option>
+												<option value="5000">$5,000</option>
+												<option value="1000">$10,000</option>
+												<option value="50000">$50,000</option>
+												<option value="100000">$100,000</option>
+												<option value="200000">$200,000</option>
+												<option value="300000">$300,000</option>
+												<option value="400000">$400,000</option>
+												<option value="500000">$500,000</option>
+												<option value="600000">$600,000</option>
+												<option value="700000">$700,000</option>
+												<option value="800000">$800,000</option>
+												<option value="900000">$900,000</option>
+												<option value="1000000">$1,000,000</option>
+												<option value="2000000">$2,000,000</option>
+											</select>
+											<input type="hidden" id="Max_price" name="Max_price" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 align-items-end ftco-animate">
+								<div class="form-group">
+									<label for="#">Min Area <span>(sq ft)</span></label>
+									<div class="form-field">
+										<div class="icon"><span class="icon-pencil"></span></div>
+										<input type="text" class="form-control" placeholder="Min Area">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 align-items-end ftco-animate">
+								<div class="form-group">
+									<label for="#">Max Area <span>(sq ft)</span></label>
+									<div class="form-field">
+										<div class="icon"><span class="icon-pencil"></span></div>
+										<input type="text" class="form-control" placeholder="Max Area">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 align-self-end ftco-animate">
+								<div class="form-group">
+									<div class="form-field">
+										<input type="submit" value="Search" class="form-control btn
+											btn-primary">
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div><!-- end -->
+			<div class="col-lg-9">
 				<div class="row">
-					<div class="col-lg-3">
-						<div class="search-wrap">
-							<h3>Advance Search</h3>
-							<form action="#" class="search-property">
-		        		<div class="row">
-		        			<div class="col-md-12 align-items-end ftco-animate">
-		        				<div class="form-group">
-		        					<label for="#">Keyword</label>
-		          				<div class="form-field">
-		          					<div class="icon"><span class="icon-pencil"></span></div>
-				                <input type="text" class="form-control" placeholder="Keyword">
-				              </div>
-			              </div>
-		        			</div>
-		        			<div class="col-md-12 align-items-end ftco-animate">
-		        				<div class="form-group">
-		        					<label for="#">Location</label>
-		          				<div class="form-field">
-		          					<div class="icon"><span class="icon-pencil"></span></div>
-				                <input type="text" class="form-control" placeholder="City/Locality Name">
-				              </div>
-			              </div>
-		        			</div>
-		        			<div class="col-md-12 align-items-end ftco-animate">
-		        				<div class="form-group">
-		        					<label for="#">Property Type</label>
-		        					<div class="form-field">
-		          					<div class="select-wrap">
-		                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-		                      <select name="" id="" class="form-control">
-		                      	<option value="">Type</option>
-		                        <option value="">Commercial</option>
-		                        <option value="">- Office</option>
-		                        <option value="">Residential</option>
-		                        <option value="">Villa</option>
-		                        <option value="">Condominium</option>
-		                        <option value="">Apartment</option>
-		                      </select>
-		                    </div>
-				              </div>
-			              </div>
-		        			</div>
-		        			<div class="col-md-12 align-items-end ftco-animate">
-		        				<div class="form-group">
-		        					<label for="#">Property Status</label>
-		        					<div class="form-field">
-		          					<div class="select-wrap">
-		                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-		                      <select name="" id="" class="form-control">
-		                      	<option value="">Type</option>
-		                        <option value="">Rent</option>
-		                        <option value="">Sale</option>
-		                      </select>
-		                    </div>
-				              </div>
-			              </div>
-		        			</div>
-		        			<div class="col-md-12 align-items-end ftco-animate">
-		        				<div class="form-group">
-		        					<label for="#">Agents</label>
-		        					<div class="form-field">
-		          					<div class="select-wrap">
-		                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-		                      <select name="" id="" class="form-control">
-		                      	<option value="">Any</option>
-		                        <option value="">Jonh Doe</option>
-		                        <option value="">Doe Mags</option>
-		                        <option value="">Kenny Scott</option>
-		                        <option value="">Emily Storm</option>
-		                      </select>
-		                    </div>
-				              </div>
-			              </div>
-		        			</div>
-		        		</div>
+					{% if object %}
+					{% for i in object %}
+					<div class="col-md-6 col-lg-4 ftco-animate">
+						<div class="project">
+							<div class="img">
+								<img src="{{i.image.url}}" style="height: 371px;" class="img-fluid"
+									alt="Colorlib Template">
+								<div class="text">
+									<span>{{i.status}}</span>
+									<h3><a href="{% url 'properties-single' i.id %}">{{i.Agents}} <br>{{i.date}} <span>{% if i.time_start %}{{ i.time_start|time:"H:i" }}{%endif %}</span></a></h3>
+								</div>
+							</div>
+							<div class="desc pt-3">
+								<h4 class="price">${{i.Price}}</h4>
+								<p class="h-info"><span class="location">{{i.location}}</span> <span class="details">&mdash; {{i.Beds}} bds, {{i.Bathroom}} bath</span></p>
+							</div>
+						</div>
 
-		        		<div class="row">
-		        			<div class="col-md-12 align-items-end ftco-animate">
-		        				<div class="form-group">
-		        					<label for="#">Min Beds</label>
-		        					<div class="form-field">
-		          					<div class="select-wrap">
-		                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-		                      <select name="" id="" class="form-control">
-		                      	<option value="">1</option>
-		                        <option value="">2</option>
-		                        <option value="">3</option>
-		                        <option value="">4</option>
-		                        <option value="">5</option>
-		                      </select>
-		                    </div>
-				              </div>
-			              </div>
-		        			</div>
-		        			<div class="col-md-12 align-items-end ftco-animate">
-		        				<div class="form-group">
-		        					<label for="#">Min Bathroom</label>
-		        					<div class="form-field">
-		          					<div class="select-wrap">
-		                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-		                      <select name="" id="" class="form-control">
-		                      	<option value="">1</option>
-		                        <option value="">2</option>
-		                        <option value="">3</option>
-		                        <option value="">4</option>
-		                        <option value="">5</option>
-		                      </select>
-		                    </div>
-				              </div>
-			              </div>
-		        			</div>
-		        			<div class="col-md-12 align-items-end ftco-animate">
-		        				<div class="form-group">
-		        					<label for="#">Min Price</label>
-		        					<div class="form-field">
-		          					<div class="select-wrap">
-		                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-		                      <select name="" id="" class="form-control">
-		                      	<option value="">Min Price</option>
-		                        <option value="">$1,000</option>
-		                        <option value="">$5,000</option>
-		                        <option value="">$10,000</option>
-		                        <option value="">$50,000</option>
-		                        <option value="">$100,000</option>
-		                        <option value="">$200,000</option>
-		                        <option value="">$300,000</option>
-		                        <option value="">$400,000</option>
-		                        <option value="">$500,000</option>
-		                        <option value="">$600,000</option>
-		                        <option value="">$700,000</option>
-		                        <option value="">$800,000</option>
-		                        <option value="">$900,000</option>
-		                        <option value="">$1,000,000</option>
-		                      </select>
-		                    </div>
-				              </div>
-			              </div>
-		        			</div>
-		        			<div class="col-md-12 align-items-end ftco-animate">
-		        				<div class="form-group">
-		        					<label for="#">Max Price</label>
-		        					<div class="form-field">
-		          					<div class="select-wrap">
-		                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-		                      <select name="" id="" class="form-control">
-		                      	<option value="">Max Price</option>
-		                        <option value="">$5,000</option>
-		                        <option value="">$10,000</option>
-		                        <option value="">$50,000</option>
-		                        <option value="">$100,000</option>
-		                        <option value="">$200,000</option>
-		                        <option value="">$300,000</option>
-		                        <option value="">$400,000</option>
-		                        <option value="">$500,000</option>
-		                        <option value="">$600,000</option>
-		                        <option value="">$700,000</option>
-		                        <option value="">$800,000</option>
-		                        <option value="">$900,000</option>
-		                        <option value="">$1,000,000</option>
-		                        <option value="">$2,000,000</option>
-		                      </select>
-		                    </div>
-				              </div>
-			              </div>
-		        			</div>
-		        			<div class="col-md-12 align-items-end ftco-animate">
-		        				<div class="form-group">
-		        					<label for="#">Min Area <span>(sq ft)</span></label>
-		          				<div class="form-field">
-		          					<div class="icon"><span class="icon-pencil"></span></div>
-				                <input type="text" class="form-control" placeholder="Min Area">
-				              </div>
-			              </div>
-		        			</div>
-		        			<div class="col-md-12 align-items-end ftco-animate">
-		        				<div class="form-group">
-		        					<label for="#">Max Area <span>(sq ft)</span></label>
-		          				<div class="form-field">
-		          					<div class="icon"><span class="icon-pencil"></span></div>
-				                <input type="text" class="form-control" placeholder="Max Area">
-				              </div>
-			              </div>
-		        			</div>
-		        			<div class="col-md-12 align-self-end ftco-animate">
-		        				<div class="form-group">
-		        					<div class="form-field">
-				                <input type="submit" value="Search" class="form-control btn btn-primary">
-				              </div>
-			              </div>
-		        			</div>
-		        		</div>
-		        	</form>
-		        </div>
-					</div><!-- end -->
-					<div class="col-lg-9">
-		        <div class="row">
-					{% for i in announcements  %}
-		    			<div class="col-md-6 col-lg-4 ftco-animate">
-							
-		    				<div class="project">
-		    					<div class="img">
-				    				<img src="{{i.image.url}}" style="height: 371px;" class="img-fluid" alt="Colorlib Template">
-				    				<div class="text">
-				    					<span>{{i.status}}</span>
-				    					<h3><a href="{% url 'properties-single' i.id %}">{{i.author}} <br> {{i.date}} <span>{% if i.time_start %}{{ i.time_start|time:"H:i" }}{% endif %}</span></a></h3>
-				    				</div>
-			    				</div>
-			    				<div class="desc pt-3">
-			    					<h4 class="price">${{i.Price}}</h4>
-										<p class="h-info"><span class="location">{{i.region}}</span> <span class="details">&mdash; {{i.Beds}} bds, {{i.Bathroom}} bath</span></p>
-										
-			    				</div>
-		    				</div>
-							
-		    			</div>
+					</div>
 					{% endfor %}
-		    			<!--<div class="col-md-6 col-lg-4 ftco-animate">
+					{% else %}
+					{% for i in announcements %}
+					<div class="col-md-6 col-lg-4 ftco-animate">
+
+						<div class="project">
+							<div class="img">
+								<img src="{{i.image.url}}" style="height: 371px;" class="img-fluid"
+									alt="Colorlib Template">
+								<div class="text">
+									<span>{{i.status}}</span>
+									<h3><a href="{% url 'properties-single' i.id %}">{{i.Agents}} <br>{{i.date}} <span>{% if i.time_start %}{{ i.time_start|time:"H:i" }}{%endif %}</span></a></h3>
+								</div>
+							</div>
+							<div class="desc pt-3">
+								<h4 class="price">${{i.Price}}</h4>
+								<p class="h-info"><span class="location">{{i.location}}</span> <span
+										class="details">&mdash; {{i.Beds}} bds, {{i.Bathroom}} bath</span></p>
+							</div>
+						</div>
+
+					</div>
+					{% endfor %}
+					{% endif %}
+					<!--<div class="col-md-6 col-lg-4 ftco-animate">
 		    				<div class="project">
 		    					<div class="img">
 				    				<img src="{% static 'images/work-2.jpg' %}" class="img-fluid" alt="Colorlib Template">
@@ -358,33 +395,112 @@
 			    				</div>
 		    				</div>
 		    			</div>-->
-		    		</div>
-		    		<div class="row no-gutters my-5">
-		          <div class="col text-center">
-		            <div class="block-27">
-					  {% if announcements.has_other_pages %}
-		              <ul>
-						{% if announcements.has_previous %}
-						<li><a href="?page={{announcements.previous_page_number}}">&lt;</a></li>
-						{% endif %}
-						{% for i in announcements.paginator.page_range %}
-						{% if announcements.number == i %}
-		                <li class="active"><span>{{i}}</span></li>
-						{% else %}
-		                <li><a href="?page={{i}}">{{i}}</a></li>
-						{% endif %}
-						{% endfor %}
-						{% if announcements.has_next %}
-						<li><a href="?page={{announcements.next_page_number}}">&gt;</a></li>
-						{% endif %}
-		              </ul>
-					  {% endif %}
-		            </div>
-		          </div>
-		        </div>
-		    	</div>
-	    	</div>
+				</div>
+				<div class="row no-gutters my-5">
+					<div class="col text-center">
+						<div class="block-27">
+							{% if announcements.has_other_pages %}
+							<ul>
+								{% if announcements.has_previous %}
+								<li><a href="?page={{announcements.previous_page_number}}">&lt;</a></li>
+								{% endif %}
+								{% for i in announcements.paginator.page_range %}
+								{% if announcements.number == i %}
+								<li class="active"><span>{{i}}</span></li>
+								{% else %}
+								<li><a href="?page={{i}}">{{i}}</a></li>
+								{% endif %}
+								{% endfor %}
+								{% if announcements.has_next %}
+								<li><a href="?page={{announcements.next_page_number}}">&gt;</a></li>
+								{% endif %}
+							</ul>
+							{% endif %}
+						</div>
+					</div>
+				</div>
 			</div>
-		</section>
-		
+		</div>
+	</div>
+</section>
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script>
+	$(function () {
+		$("#prostatus").keyup(function () {
+			var value = $(this).val();
+			$("#status_id option[selected]").removeAttr("selected");
+			$("#status_id option[value=" + value + "]").attr("selected", "selected");
+		});
+		$("#prostatus_id").change(function () {
+			$("#prostatus").val($(this).val());
+		});
+	});
+
+	$(function () {
+		$("#Property").keyup(function () {
+			var value = $(this).val();
+			$("#Property_id option[selected]").removeAttr("selected");
+			$("#Property_id option[value=" + value + "]").attr("selected", "selected");
+		});
+		$("#Property_id").change(function () {
+			$("#Property").val($(this).val());
+		});
+	});
+
+
+	$(function () {
+		$("#limit").keyup(function () {
+			var value = $(this).val();
+			$("#limit_id option[selected]").removeAttr("selected");
+			$("#limit_id option[value=" + value + "]").attr("selected", "selected");
+		});
+		$("#limit_id").change(function () {
+			$("#limit").val($(this).val());
+		});
+	});
+
+	$(function () {
+		$("#Max_price").keyup(function () {
+			var value = $(this).val();
+			$("#Max_price_id option[selected]").removeAttr("selected");
+			$("#Max_price_id option[value=" + value + "]").attr("selected", "selected");
+		});
+		$("#Max_price_id").change(function () {
+			$("#Max_price").val($(this).val());
+		});
+	});
+
+	$(function () {
+		$("#Agents").keyup(function () {
+			var value = $(this).val();
+			$("#Agents_id option[selected]").removeAttr("selected");
+			$("#Agents_id option[value=" + value + "]").attr("selected", "selected");
+		});
+		$("#Agents_id").change(function () {
+			$("#Agents").val($(this).val());
+		});
+	});
+
+	$(function () {
+		$("#Beds").keyup(function () {
+			var value = $(this).val();
+			$("#Beds_id option[selected]").removeAttr("selected");
+			$("#Beds_id option[value=" + value + "]").attr("selected", "selected");
+		});
+		$("#Beds_id").change(function () {
+			$("#Beds").val($(this).val());
+		});
+	});
+
+	$(function () {
+		$("#Bathroom").keyup(function () {
+			var value = $(this).val();
+			$("#Bathroom_id option[selected]").removeAttr("selected");
+			$("#Bathroom_id option[value=" + value + "]").attr("selected", "selected");
+		});
+		$("#Bathroom_id").change(function () {
+			$("#Bathroom").val($(this).val());
+		});
+	});
+</script>
 {% endblock content %}

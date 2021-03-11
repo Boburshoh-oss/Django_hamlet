@@ -4,7 +4,62 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth import login, logout
 from .forms import loginForm, registerForm
+from django.http import HttpResponseRedirect
+from django.conf import settings
+from django.http import JsonResponse
+import json
 
+
+MAILCHIMP_API_KEY=settings.MAILCHIMP_API_KEY
+MAILCHIMP_DATA_CENTER=settings.MAILCHIMP_DATA_CENTER
+MAILCHIMP_MAIL_LIST_ID=settings.MAILCHIMP_MAIL_LIST_ID
+api_url=f'https://{MAILCHIMP_DATA_CENTER}.api.mailchimp.com/3.0/'
+members_endpoint=f'{api_url}/lists/{MAILCHIMP_MAIL_LIST_ID}/members'
+
+# def subscribe(email):
+#     data={
+#         "email_address":email,
+#         'status':'subscribed'
+#     }
+#     r=request.POST(
+#         members_endpoint,
+#         auth=("",MAILCHIMP_API_KEY),
+#         data=json.dumps(data)
+#     )
+#     retrun r.status_code, r.json()
+
+# def email_list_sign_up(request):
+#     form=EmailSignupForm(request.POST or None)
+#     if request.method=="POST":
+#         if form.is_valid():
+#             email_signup_qs=Signup.objects.filter(email=form.instance.email)
+#             if email_signup_qs.exists():
+#                 messages.info(request,"You are already subscribed")
+#             else:
+#                 subscribe(form.instance.email)
+#                 form.save()
+#     return HttpResponseRedirect(request,META.get("HTTP_REFERER"))
+
+
+# from django.http import HttpResponse, JsonResponse
+# from .models import Subscribe
+# from .utils import SendSubscribeMail
+
+# def subscribe(request):
+#     if request.method == 'POST':
+#         email = request.POST['email_id']
+#         email_qs = Subscribe.objects.filter(email_id = email)
+#         if email_qs.exists():
+#             data = {"status" : "404"}
+#             return JsonResponse(data)
+#         else:
+#             Subscribe.objects.create(email_id = email)
+#             SendSubscribeMail(email) # Send the Mail, Class available in utils.py
+            
+#     return HttpResponse("/")
+# def base(request):
+#     form=EmailSignupForm()
+#     return render(request,'base.html',{'form':form})
 # Create your views here.
 def sign_up(request):
     if request.method=='POST':
@@ -16,13 +71,6 @@ def sign_up(request):
             username=register_form.cleaned_data['username']
             password1=register_form.cleaned_data['password1']
             password2=register_form.cleaned_data['password2']
-        #first_name=request.POST['first_name']
-        #last_name=request.POST['lasst_name']
-        #username=request.POST['username']
-        #email=request.POST['email']
-        #password1=request.POST['password1']
-        #password2=request.POST['password2']
-
 
         if password1==password2:
             if User.objects.filter(username=username).exists():
@@ -72,3 +120,4 @@ def sign_in(request):
 def sign_out(request):
     auth.logout(request)
     return redirect('/')
+

@@ -66,5 +66,14 @@ class Announcement(models.Model):
     def __str__(self):
         return self.location
 
+class Message(models.Model):
+    name=models.CharField(null=True,max_length=50)
+    email=models.EmailField(max_length=200)
+    subject=models.CharField(max_length=200)
+    message=models.TextField()
+
+    def __str__(self):
+        return self.name
+    
 
      

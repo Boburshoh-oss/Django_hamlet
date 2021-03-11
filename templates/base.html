@@ -1,11 +1,12 @@
 {% load static %}
+
 {% url 'index' as index %}
 {% url 'about' as about %}
 {% url 'agents' as agents %}
 {% url 'blog' as blog %}
 {% url 'properties' as properties %}
 {% url 'contact' as contact %}
-{% url 'personalE' as personal %}
+
 
 
 <!DOCTYPE html>
@@ -56,8 +57,8 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-            <li class="nav-item {% if index == request.path %}active{% endif %}" id="indexx"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
-            <li class="nav-item {% if add == request.path %}active{% endif %}" ><a href="{% if request.user.is_authenticated and user.is_authenticated  %} new_add {% else %}{% url 'sign_in' %} {% endif %}" class="nav-link">Add announcement</a></li>              
+            <li class="nav-item {% if index == request.path %}active{% endif %}" id="indexx"><a href="{% if request.user.is_authenticated %}{{user.username}}{% else %}{% url 'index' %}{% endif %}" class="nav-link">Home</a></li>
+            <li class="nav-item {% if add == request.path %}active{% endif %}" ><a href="{% if request.user.is_authenticated  %} new_add {% else %}{% url 'sign_in' %} {% endif %}" class="nav-link">Add announcement</a></li>              
 	        	<li class="nav-item {% if properties == request.path %}active{% endif %}" id="properties" ><a href="{% url 'properties' %}" class="nav-link">Properties</a></li>
             <li class="nav-item {% if agents == request.path %}active{% endif %}" id="agents" ><a href= "{% url 'agents' %}"  class="nav-link">Agents</a></li>
             <li class="nav-item {% if blog == request.path %}active{% endif %}" id='blog' ><a href="{% url 'blog' %}"  class="nav-link">Blog</a></li>
@@ -133,10 +134,14 @@
             <div class="ftco-footer-widget mb-4">
             	<h2 class="ftco-heading-2">Newsletter</h2>
             	<p>Far far away, behind the word mountains, far from the countries.</p>
-              <form action="#" class="subscribe-form">
+              <form id = "subscribe" method="POST" class="subscribe-form">
+                
+                
+                {% csrf_token %}
                 <div class="form-group">
-                  <input type="text" class="form-control mb-2 text-center" placeholder="Enter email address">
-                  <input type="submit" value="Subscribe" class="form-control submit px-3">
+                  
+                  <input name = "email_id" type="email" class="form-control mb-2 text-center" placeholder="Enter email address">
+                  <input type="submit" value="Subscribe" id = "email_submit" class="form-control submit px-3">
                 </div>
               </form>
             </div>
@@ -157,8 +162,68 @@
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $('#subscribe').submit(function(e){
+      e.preventDefault();
+      var email_id = $("#email_id").val();
+      if(email_id){
+        var csrfmiddlewaretoken = csrftoken;
+        var email_data = {"email_id": email_id, 
+                          "csrfmiddlewaretoken" : csrfmiddlewaretoken};
+        $.ajax({
+          type : 'POST',
+          url :  '/subscribe/',
+          data : email_data,
+          success : function(response){
+            $('#email_id').val(''); 
+            if(response.status == "404"){
+              alert("This Email is already been subscribed!");
+            }
+            else{
+              alert("Thank you for Subscribing! Please Check your Email to Confirm the Subscription");
+            }
+          },
+          error: function(response) {
+            alert("Sorry Something went Wrong");
+            $('#email_id').val(''); 
+          }
+        });
+        return false;
+      }
+      else{
+        alert("Please provide correct email!");
+      }
+  });
+ 
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 
+function csrfSafeMethod(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+})
+  </script> -->
   <script src="{% static 'js/jquery.min.js' %}"></script>
   <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
   <script src="{% static 'js/popper.min.js' %}"></script>

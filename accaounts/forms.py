@@ -1,6 +1,14 @@
 from django import forms
 from django.forms.widgets import TextInput, PasswordInput, EmailInput
+from django.contrib.auth.forms import UserCreationForm
 
+
+
+
+# class EmailSignupForm(forms.Modelform):
+#     class Meta:
+#         model=Signup
+#         fields=('email',)
 
 class loginForm(forms.Form):
     username=forms.CharField(
