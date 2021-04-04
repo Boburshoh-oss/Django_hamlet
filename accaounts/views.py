@@ -3,12 +3,12 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages 
 from django.shortcuts import redirect
 from django.contrib.auth import login, logout
-from .forms import loginForm, registerForm
+from .forms import loginForm, registerForm,EditProfile,ProfileEdit,Subscribtion
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.http import JsonResponse
 import json
-
+from .models import UserDetail
 
 MAILCHIMP_API_KEY=settings.MAILCHIMP_API_KEY
 MAILCHIMP_DATA_CENTER=settings.MAILCHIMP_DATA_CENTER
@@ -61,6 +61,31 @@ members_endpoint=f'{api_url}/lists/{MAILCHIMP_MAIL_LIST_ID}/members'
 #     form=EmailSignupForm()
 #     return render(request,'base.html',{'form':form})
 # Create your views here.
+
+def newsletter(request):
+    # form=Subscribtion(request.POST or None)
+
+    # if form.is_valid():
+    #     instance=form.save(commit=False)
+    #     if User.objects.filter(email=instance.email).exists():
+    #         print("this email already exists ")
+    #     else:
+    #         instance.save()
+    # context={
+    #     'form':form,
+    # }
+    # return render(request,'base.html',context)
+    if request.method=='POST':
+        email=request.POST['email']
+        auth=User.objects.all()
+        if auth(email=email).exists():
+            print("this email already exists ")
+        else:
+            users=User(email=email).save()
+            print(users,"userlar keldimi")
+        print(email,"email keldi")
+    return render(request,'base.html',{'users':auth})
+
 def sign_up(request):
     if request.method=='POST':
         register_form=registerForm(request.POST)
@@ -88,13 +113,14 @@ def sign_up(request):
                         password = password1
                     )
                 user.save()
+                UserDetail.objects.create(user=user).save()
                 
                 
                 
         else:
             messages.info(request,"parollar bir xilligini tekshiring")
             return redirect('sign_up')
-        return redirect("../" + username)
+        return redirect("./sign_in")
     else:
         register_form=registerForm()
         return render(request,'accaounts/sign_up.html',{'form':register_form})
@@ -110,7 +136,7 @@ def sign_in(request):
             if user is not None:
                 auth.login(request,user)
                 
-                return redirect("../"+username)
+                return redirect("../")
             else:
                 messages.info(request, "Username yoki parol xato, Ro'yhatdan o'tganingizni tekshiring!")
                 return redirect("sign_in")
@@ -121,3 +147,16 @@ def sign_out(request):
     auth.logout(request)
     return redirect('/')
 
+def editprofile(request):
+    if request.method == 'POST':
+        edit_form = EditProfile(request.POST, instance=request.user)
+        p_form  = ProfileEdit(request.POST, request.FILES, instance=request.user.userdetail)
+        if edit_form.is_valid() and p_form.is_valid():                            
+            edit_form.save()
+            p_form.save()
+            messages.info(request, "Muvaffaqiyatli yakunlandi!")
+            return redirect('profile')
+    else:
+        edit_form = EditProfile(instance=request.user)
+        p_form = ProfileEdit(instance=request.user.userdetail)   
+    return render(request, 'profile.html', {'form': edit_form,'p_form':p_form })

@@ -1,5 +1,23 @@
 from django.db.models import Q
+import django_filters
+from .models import Announcement
 
+
+class AnnounFilter(django_filters.FilterSet):
+        class Meta:
+            model=Announcement
+            fields=[
+                'title',
+                'location',
+                'Agents',
+                'Beds',
+                'Bathroom',
+                'Property_type',
+                'Price',
+                'status'
+            ]
+            verbose_name = 'AnnouncementFilter'
+            verbose_name_plural = 'AnnouncementFilters'
 def build_q(fields_dict, params_dict, request=None):
     """
     Returns a Q object from filters config and actual parmeters.

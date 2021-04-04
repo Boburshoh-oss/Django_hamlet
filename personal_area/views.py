@@ -62,10 +62,12 @@ def load_cities(request):
     return render(request,"properties.html",{"announcement":announcements,'regions':region, 'districts':districts})"""
 
 def index(request, username):
-    user=User.objects.filter(username=username)
-    elonlar = Announcement.objects.filter(author=username)
-    return render(request,"personal_area.html", {'elonlar':elonlar, 'user':user})
-
+    if request.user.is_staff:
+        user=User.objects.filter(username=username)
+        elonlar = Announcement.objects.filter(author=username)
+        return render(request,"personal_area.html", {'elonlar':elonlar, 'user':user})
+    else:
+        return HttpResponse("nomalum eeee kirish")
 
 
 def upload(request,username):
@@ -78,17 +80,20 @@ def upload(request,username):
     return render(request, 'new_add.html',context)
 
 def upload_book(request,username):
-    regions = Region.objects.all()
-    json_serializer = serializers.get_serializer("json")()
-    districts = json_serializer.serialize(District.objects.all(), ensure_ascii=False)
-    if request.method=='POST':
-        form=ImgForm(request.POST,request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('./')
+    if request.user.is_staff:
+        regions = Region.objects.all()
+        json_serializer = serializers.get_serializer("json")()
+        districts = json_serializer.serialize(District.objects.all(), ensure_ascii=False)
+        if request.method=='POST':
+            form=ImgForm(request.POST,request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect('./')
+        else:
+            form=ImgForm()
+        return render(request,'new_add.html',{'form':form, 'regions':regions, 'districts':districts})
     else:
-        form=ImgForm()
-    return render(request,'new_add.html',{'form':form, 'regions':regions, 'districts':districts})
+        return HttpResponse("nomalum sahifaga urinish ")
 
 
 
@@ -147,3 +152,20 @@ def upload_book(request,username):
 
 def success(request): 
     return HttpResponse('successfully uploaded') 
+
+# def announcement_delete(request,id):
+#     announcement=get_object_or_404(Announcement,pk=id,author=username)
+#     if request.method=="POST":
+#         announcement.delete()
+#         return render(request,'personal_area.html')
+    
+# def update_add(request,id):
+#     announcement=get_object_or_404(Announcement, pk=id,author=username)
+#     form = UpdateAddForm(instance=announcement)
+#     if request.method=='POST':
+#         form=UpdateAddForm(request.POST,request.FILES,instance=announcement)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('/')
+#         context={'form':form}
+#         return render(request,'update_add.html',context)

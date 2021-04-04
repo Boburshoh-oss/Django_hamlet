@@ -276,6 +276,38 @@ Properties-single
 								</figure>
 							</div>
 						</div>
+						
+						{% if request.user.is_staff  %}
+							<div class="container col-12">
+								<div class="row" style="display: flex; align-items: center; justify-content: center;">
+									<div >
+									<a href="{% url 'update_add' announcmenets.id %}" class="genric-btn success-border form-control" style="width: 98%; margin-bottom: 15px; font-size: medium;">O'zgartirish</a>
+									
+									<button type="button" class="genric-btn bg-danger form-control" style="width: 98%; font-size: medium;  margin-bottom: 15px;" data-toggle="modal" data-target="#exampleModal">O'chirish</button>
+									</div>
+									<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Haqiqattan ham ushbu e'lonni o'chirmoqchimisiz?</h5>
+												</div>  
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
+													<form action="{% url 'delete' announcmenets.id %}" method="POST" >
+														{% csrf_token %}
+														<button  class="btn btn-danger">O'chirish</button>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+									<!-- Button trigger modal -->
+									<!-- Modal -->
+							</div>
+							
+						{% endif %}
+						
 						<div class="col-md-4">
 							<center><h4 class="mb-4">Review &amp; Ratings</h4>
 							<div class="row">
@@ -286,8 +318,7 @@ Properties-single
 											<label class="form-check-label" for="exampleCheck1">
 												<p class="rate"><span><i class="icon-star"></i><i
 															class="icon-star"></i><i class="icon-star"></i><i
-															class="icon-star"></i><i class="icon-star"></i> 100
-														Ratings</span></p>
+															class="icon-star"></i><i class="icon-star"></i> 100 Ratings</span></p>
 											</label>
 										</div>
 										<div class="form-check">

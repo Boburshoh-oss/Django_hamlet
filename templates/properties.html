@@ -28,14 +28,15 @@ Properties
 			<div class="col-lg-3">
 				<div class="search-wrap">
 					<h3>Advance Search</h3>
-					<form action="{% url 'properties' %}" method="GET" class="search-property">
+					<form action="{% url 'search_results' %}" method="GET" class="search-property">
+						
 						<div class="row">
 							<div class="col-md-12 align-items-end ftco-animate">
 								<div class="form-group">
 									<label for="#">Keyword</label>
 									<div class="form-field">
 										<div class="icon"><span class="icon-pencil"></span></div>
-										<input type="text" class="form-control" placeholder="Keyword">
+										<input type="text" name="title" class="form-control" placeholder="Keyword">
 									</div>
 								</div>
 							</div>
@@ -44,6 +45,7 @@ Properties
 									<label for="#">Location</label>
 									<div class="form-field">
 										<div class="icon"><span class="icon-pencil"></span></div>
+										
 										<input type="text" name="keyvalue" class="form-control" placeholder="City/Locality Name">
 									</div>
 								</div>
@@ -54,16 +56,19 @@ Properties
 									<div class="form-field">
 										<div class="select-wrap">
 											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-											<select name="Propert_Type" id="Property_id" class="form-control">
-												<option>Type</option>
-												<option value="1">Commercial</option>
+											<select name="PropertType" id="Property_id" class="form-control">
+												<option disabled selected>Type</option>
+												{% for type in turlari %}
+												<option value="{{type.id}}">{{type.name}}</option>
+												{% endfor %}
+												<!-- <option value="1">Commercial</option>
 												<option value="2">- Office</option>
 												<option value="3">Residential</option>
 												<option value="4">Villa</option>
 												<option value="5">Condominium</option>
-												<option value="6">Apartment</option>
+												<option value="6">Apartment</option> -->
 											</select>
-											<input type="hidden" id="Property" name="PropertType" />
+											<!-- <input type="hidden" id="Property" name="PropertType" /> -->
 										</div>
 									</div>
 								</div>
@@ -74,12 +79,13 @@ Properties
 									<div class="form-field">
 										<div class="select-wrap">
 											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-											<select name="select_status" id="prostatus_id" class="form-control">
+											<select name="prostatus" id="prostatus_id" class="form-control">
 												<option  disabled selected>Type</option>												
-												<option  value="3">Sale</option>
-												<option  value="4">Rent</option>											
+												{% for i in status  %}
+												<option  value="{{i.id}}">{{i.name}}</option>
+												{% endfor %}											
 											</select>
-											<input type="hidden" id="prostatus" name="prostatus" />
+											<!-- <input type="hidden" id="prostatus" name="prostatus" /> -->
 										</div>
 									</div>
 								</div>
@@ -90,13 +96,11 @@ Properties
 									<div class="form-field">
 										<div class="select-wrap">
 											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-											<select id="Agents_id" class="form-control">
+											<select name="Agents_id" id="Agents_id" class="form-control">
 												<option  disabled selected>Agents</option>
-												<option value="Abbos">Abbos</option>
-												<option value="Boburbek">Boburbek</option>
-												<option value="Azamat">Azamat</option>
-												<option value="Madina">Madina</option>
-												<option value="Doniyor">Doniyor</option>
+												{% for i in Agents  %}
+												  <option value="{{i.id}}">{{i.name}}</option>
+												{% endfor %}
 											</select>
 											<input type="hidden" id="Agents" name="Agents" />
 										</div>
@@ -149,8 +153,9 @@ Properties
 									<label for="#">Min Price</label>
 									<div class="form-field">
 										<div class="select-wrap">
-											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-											<select name="Price_limit" id="limit_id" class="form-control">
+											<div class="icon"><span class="icon-pencil"></span></div>
+											<input class="form-control" placeholder="Min Price" type="number" name="min_price" maxlength="10" size="3" >
+											<!-- <select name="Price_limit" id="limit_id" class="form-control">
 												<option disabled selected>Min Price</option>
 												<option value="5000">$5,000</option>
 												<option value="1000">$10,000</option>
@@ -167,7 +172,7 @@ Properties
 												<option value="1000000">$1,000,000</option>
 												<option value="2000000">$2,000,000</option>
 											</select>
-											<input type="hidden" id="limit" name="limit" />
+											<input type="hidden" id="limit" name="limit" /> -->
 										</div>
 									</div>
 								</div>
@@ -177,30 +182,19 @@ Properties
 									<label for="#">Max Price</label>
 									<div class="form-field">
 										<div class="select-wrap">
-											<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-											<select name="Price_limit" id="Max_price_id" class="form-control">
+											<div class="icon"><span class="icon-pencil"></span></div>
+											<input class="form-control" placeholder="Max Price" type="number" name="max_price" maxlength="10" size="3" >
+											<!-- <select name="Price_limit" id="Max_price_id" class="form-control">
 												<option disabled selected>Max Price</option>
-												<option value="5000">$5,000</option>
-												<option value="1000">$10,000</option>
-												<option value="50000">$50,000</option>
-												<option value="100000">$100,000</option>
-												<option value="200000">$200,000</option>
-												<option value="300000">$300,000</option>
-												<option value="400000">$400,000</option>
-												<option value="500000">$500,000</option>
-												<option value="600000">$600,000</option>
-												<option value="700000">$700,000</option>
-												<option value="800000">$800,000</option>
-												<option value="900000">$900,000</option>
-												<option value="1000000">$1,000,000</option>
-												<option value="2000000">$2,000,000</option>
-											</select>
-											<input type="hidden" id="Max_price" name="Max_price" />
+												{% for i in announcements.Price %}
+												  <option value="">{{i}}</option>
+												{% endfor %}
+											<input type="hidden" id="Max_price" name="Max_price" /> -->
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-md-12 align-items-end ftco-animate">
+							<!-- <div class="col-md-12 align-items-end ftco-animate">
 								<div class="form-group">
 									<label for="#">Min Area <span>(sq ft)</span></label>
 									<div class="form-field">
@@ -217,7 +211,7 @@ Properties
 										<input type="text" class="form-control" placeholder="Max Area">
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<div class="col-md-12 align-self-end ftco-animate">
 								<div class="form-group">
 									<div class="form-field">
@@ -232,16 +226,17 @@ Properties
 			</div><!-- end -->
 			<div class="col-lg-9">
 				<div class="row">
-					{% if object %}
-					{% for i in object %}
+					
+					{% for i in blog_posts %}
 					<div class="col-md-6 col-lg-4 ftco-animate">
 						<div class="project">
 							<div class="img">
 								<img src="{{i.image.url}}" style="height: 371px;" class="img-fluid"
 									alt="Colorlib Template">
 								<div class="text">
+									<span>{{i.Property_type}}</span>
 									<span>{{i.status}}</span>
-									<h3><a href="{% url 'properties-single' i.id %}">{{i.Agents}} <br>{{i.date}} <span>{% if i.time_start %}{{ i.time_start|time:"H:i" }}{%endif %}</span></a></h3>
+									<h3><a href="{% if request.user.is_authenticated  %}{% url 'properties-single' i.id %}{% else %} {% url 'sign_in' %}{% endif %}">{{i.Agents}} <br>{{i.date}} <span>{% if i.time_start %}{{ i.time_start|time:"H:i" }}{%endif %}</span></a></h3>
 								</div>
 							</div>
 							<div class="desc pt-3">
@@ -252,7 +247,7 @@ Properties
 
 					</div>
 					{% endfor %}
-					{% else %}
+					
 					{% for i in announcements %}
 					<div class="col-md-6 col-lg-4 ftco-animate">
 
@@ -261,8 +256,9 @@ Properties
 								<img src="{{i.image.url}}" style="height: 371px;" class="img-fluid"
 									alt="Colorlib Template">
 								<div class="text">
+									<span>{{i.Property_type}}</span>
 									<span>{{i.status}}</span>
-									<h3><a href="{% url 'properties-single' i.id %}">{{i.Agents}} <br>{{i.date}} <span>{% if i.time_start %}{{ i.time_start|time:"H:i" }}{%endif %}</span></a></h3>
+									<h3><a href="{% if request.user.is_authenticated  %}{% url 'properties-single' i.id %}{% else %} {% url 'sign_in' %}{% endif %}">{{i.Agents}} <br>{{i.date}} <span>{% if i.time_start %}{{ i.time_start|time:"H:i" }}{%endif %}</span></a></h3>
 								</div>
 							</div>
 							<div class="desc pt-3">
@@ -274,7 +270,7 @@ Properties
 
 					</div>
 					{% endfor %}
-					{% endif %}
+					
 					<!--<div class="col-md-6 col-lg-4 ftco-animate">
 		    				<div class="project">
 		    					<div class="img">
@@ -396,28 +392,38 @@ Properties
 		    				</div>
 		    			</div>-->
 				</div>
+				
 				<div class="row no-gutters my-5">
+					{% if blog_posts %}
 					<div class="col text-center">
-						<div class="block-27">
-							{% if announcements.has_other_pages %}
-							<ul>
-								{% if announcements.has_previous %}
-								<li><a href="?page={{announcements.previous_page_number}}">&lt;</a></li>
-								{% endif %}
-								{% for i in announcements.paginator.page_range %}
-								{% if announcements.number == i %}
-								<li class="active"><span>{{i}}</span></li>
-								{% else %}
-								<li><a href="?page={{i}}">{{i}}</a></li>
-								{% endif %}
-								{% endfor %}
-								{% if announcements.has_next %}
-								<li><a href="?page={{announcements.next_page_number}}">&gt;</a></li>
-								{% endif %}
-							</ul>
-							{% endif %}
-						</div>
+						
+						{% include 'blog-post-pagination.html' with blog_posts=blog_posts%}
+						
 					</div>
+					{% endif %}
+					{% if announcements.has_other_pages %}
+							<!-- <div class="row mt-5"> -->
+								<div class="col text-center">
+									<div class="block-27">
+										<ul>
+											{% if announcements.has_previous %}
+												<li><a href="?page={{ announcements.previous_page_number }}">&lt;</a></li>
+											{% endif %}
+											{% for i in announcements.paginator.page_range %}
+												{% if announcements.number == i %}
+													<li class="active"><span>{{ i }}</span></li>
+												{% elif i > announcements.number|add:'-2' and i < announcements.number|add:'2' %}
+													<li><a href="?page={{ i }}">{{ i }}</a></li>
+												{% endif %}
+											{% endfor %}
+											{% if announcements.has_next %}
+												<li><a href="?page={{ announcements.next_page_number }}">&gt;</a></li>
+											{% endif %}
+										</ul>
+									</div>
+								</div>
+							<!-- </div> -->
+					{% endif %}
 				</div>
 			</div>
 		</div>

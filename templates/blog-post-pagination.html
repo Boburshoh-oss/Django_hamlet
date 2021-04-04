@@ -1,0 +1,32 @@
+<!-- FILTERED Pagination -->
+{% load mysite_extras %}
+<div class="d-flex flex-column m-auto pagination mt-5">
+    <nav aria-label="Page navigation">
+    <ul class="pagination pg-grey justify-content-center">
+        {% if blog_posts.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; First</a>
+              <a class="page-link" href="{%my_url blog_post.previous_page_number 'page' request.GET.urlencode%}">&laquo; Previous</a>
+            </li>
+        {% endif %}
+    
+        {% for i in blog_posts.paginator.page_range %}
+            {% if blog_posts.number == i %}
+                <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+            {% else %}
+                <li class="page-item" ><a class="page-link" href="{% my_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if blog_posts.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="{% my_url  blog_posts.next_page_number 'page' request.GET.urlencode %}">Next</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link"  href="{% my_url  blog_posts.paginator.num.pages 'page' request.GET.urlencode %}">Last &raquo;</a>
+            </li>
+        {% endif %}
+    </ul>
+    </nav>
+    </div>
+    <!-- end pagination-->

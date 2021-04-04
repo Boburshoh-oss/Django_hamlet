@@ -4,6 +4,29 @@ from mysite.models import *
 from django import forms
 
 
+
+# class UpdateAddForm(forms.ModelForm):
+    
+#     class Meta:
+#         model = Announcement
+#         fields = ['title','region','district','location','Beds','Bathroom','Property_type','status','Agents','modum','image','Price','phone','Garage']
+#         widgets = {
+#             'title':forms.TextInput(attrs={'class':'form-control h6'}),
+#             'region':forms.Select(attrs={'class':'form-control'}),
+#             'district':forms.Select(attrs={'class':'form-control'}),
+#             'Property_type':forms.Select(attrs={'class':'form-control'}),
+#             'status':forms.Select(attrs={'class':'form-control'}),          
+#             'image':forms.FileInput(attrs={'class':'form-control'}),
+#             'location':forms.TextInput(attrs={'class':'form-control'}),
+#             'Agents':forms.TextInput(attrs={'class':'form-control'}),
+#             'Beds':forms.NumberInput(attrs={'class':'form-control'}),
+#             'Bathroom':forms.NumberInput(attrs={'class':'form-control'}),
+#             'Phone':forms.NumberInput(attrs={'class':'form-control'}),
+#             'Garage':forms.NumberInput(attrs={'class':'form-control'}),
+#             'modum':forms.Textarea(attrs={'class':'form-control'}),
+#             'Price':forms.Select(attrs={'class':'form-control'}),
+
+#         }
 """class Filter(forms.Form):
     types=(
        

@@ -40,7 +40,13 @@
     
     <!-- Font Icon -->
     
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <title>
         {% block title %}
             
@@ -57,19 +63,39 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-            <li class="nav-item {% if index == request.path %}active{% endif %}" id="indexx"><a href="{% if request.user.is_authenticated %}{{user.username}}{% else %}{% url 'index' %}{% endif %}" class="nav-link">Home</a></li>
-            <li class="nav-item {% if add == request.path %}active{% endif %}" ><a href="{% if request.user.is_authenticated  %} new_add {% else %}{% url 'sign_in' %} {% endif %}" class="nav-link">Add announcement</a></li>              
+            <li class="nav-item {% if index == request.path %}active{% endif %}" id="indexx"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item {% if add == request.path %}active{% endif %}" ><a href="{% if request.user.is_authenticated  %} new_add {% else %}{% url 'sign_in' %} {% endif %}" class="nav-link">Add announcement</a></li>       
+            {%endif%}       
 	        	<li class="nav-item {% if properties == request.path %}active{% endif %}" id="properties" ><a href="{% url 'properties' %}" class="nav-link">Properties</a></li>
             <li class="nav-item {% if agents == request.path %}active{% endif %}" id="agents" ><a href= "{% url 'agents' %}"  class="nav-link">Agents</a></li>
             <li class="nav-item {% if blog == request.path %}active{% endif %}" id='blog' ><a href="{% url 'blog' %}"  class="nav-link">Blog</a></li>
             <li class="nav-item {% if about == request.path %}active{% endif %}" id='about' ><a href="{% url 'about' %}" class="nav-link">About</a></li>
-            <li class="nav-item {% if contact == request.path %}active{% endif %}" id='contact' ><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>	          
-
+            <li class="nav-item {% if contact == request.path %}active{% endif %}" id='contact' ><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>	   
             {% if request.user.is_authenticated %}
-            <li class="nav-item cta"><a href="{% url 'sign_out' %}" class="nav-link"><span>Sign Out</span></a></li>
+              <li class="nav-item cta" >
+                <div class="dropdown">
+                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a href="" class="nav-link mt-3">{{ request.user }}</a>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-top: -5px;">
+                    <a href="{% url 'profile' %}" class="dropdown-item">Edit</a>   
+                    {% if request.user.is_staff %}
+                    <a class="dropdown-item" href="../../{{request.user}}">Announcement</a>
+                    <a href="../../{{request.user}}/new_add" class="dropdown-item">E'lon berish</a>   
+                                            
+                    {% endif %}                      
+                    <a class="dropdown-item" href="{% url 'sign_out' %}">Exit</a>
+                  </div>
+                </div>
+              </li>
             {% else %}
-            <li class="nav-item cta"><a href="{% url 'sign_in' %}" class="nav-link"><span>Sign In</span></a></li>
-            {% endif %}
+               <li class="nav-item cta">
+                  <a href="{% url 'sign_in' %}" class="nav-link">Sign IN</a>
+              </li>
+            {% endif %}       
+
+            
 	        </ul>
 	      </div>
 	    </div>
@@ -135,12 +161,9 @@
             	<h2 class="ftco-heading-2">Newsletter</h2>
             	<p>Far far away, behind the word mountains, far from the countries.</p>
               <form id = "subscribe" method="POST" class="subscribe-form">
-                
-                
                 {% csrf_token %}
                 <div class="form-group">
-                  
-                  <input name = "email_id" type="email" class="form-control mb-2 text-center" placeholder="Enter email address">
+                  <input name = "email" type="email" class="form-control mb-2 text-center" placeholder="Enter email address">
                   <input type="submit" value="Subscribe" id = "email_submit" class="form-control submit px-3">
                 </div>
               </form>
@@ -240,6 +263,41 @@ $.ajaxSetup({
   <script src="{% static 'js/google-map.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
   
-  
+  <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+
+    $(document).ready(function(event){
+      $('.reply-btn').click(function()
+      {
+        $(this).parent().parent().next('.replied-comments').fadeToggle()
+      });
+    });
+
+    $(document).on('submit','comment-form', function(event){
+      event.prevenDefault();
+      console.log($(this).serialize());
+      $.ajax({
+        type:'POST',
+        url:$(this).attr(action),
+        data:$(this).serialize(),
+        dataType: 'json',
+        success: function(response){
+          $('main-comment-section').html(response['form']);
+          $('textarea').val('');
+          $('.reply-btn').click(function()
+          {
+            $(this).parent().parent().next('.replied-comments').fadeToggle()
+            $('textarea').val('');
+          });
+          
+        },
+        error: function(rs,e){
+          console.log(rs.responseText)
+        }        
+      })
+    })
+  </script>
 </body>
 </html>

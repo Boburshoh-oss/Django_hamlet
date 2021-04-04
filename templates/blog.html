@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-	Blog
+	  Blog
 {% endblock title %}
 {% block content %}    
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('{% static 'images/bg_4.jpg' %}');" data-stellar-background-ratio="0.5">
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('{% static 'images/bg_4.jpg' %}')" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -19,23 +19,55 @@
     <section class="ftco-section">
 			<div class="container">
 				<div class="row">
+          
+          {% if posts %}
+          
+          {% for i in posts %}
           <div class="col-md-6 col-lg-3 ftco-animate">
             <div class="blog-entry">
-              <a href="blog-single" class="block-20" style="background-image: url('{% static 'images/image_1.jpg' %}');">
+              <a href="{% url 'blog-single' i.id%}" class="block-20" style="background-image: url('{{i.post_image.url}}');">
               </a>
               <div class="text py-4">
                 <div class="meta mb-2">
-                  <div><a href="#">Jan. 20, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                  <div><a href="#">{{i.date}}</a></div>
+                  
+                  <div><a href="{% url 'blog-single' i.id %}">{{i.agent}}</a></div>
+                  
+                  <div><a href="{% url 'blog-single' i.id %}" class="meta-chat"><span class="icon-chat">{{i.comments.all.count}}</span></a></div>
+                  <div><a href="#" class="meta-chat"><span class="fa fa-eye">{{i.blog_view}}</span></a></div>
                 </div>
                 <div class="desc">
-	                <h3 class="heading"><a href="#">Pointing has no control about the blind texts</a></h3>
+	                <h3 class="heading"><a href="{% url 'blog-single' i.id %}">{{i.title}}</a></h3>
 	              </div>
               </div>
             </div>
           </div>
+          {% endfor %}
+          {% elif object_list %}
+          {% for i in object_list %}
           <div class="col-md-6 col-lg-3 ftco-animate">
+            <div class="blog-entry">
+              <a href="{% url 'blog-single' i.id%}" class="block-20" style="background-image: url('{{i.post_image.url}}');">
+              </a>
+              <div class="text py-4">
+                <div class="meta mb-2">
+                  <div><a href="#">{{i.date}}</a></div>
+                  
+                  <div><a href="{% url 'blog-single' i.id %}">{{i.agent}}</a></div>
+                  
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> {{i.blog_view}}</a></div>
+                </div>
+                <div class="desc">
+                  <h3 class="heading"><a href="#">{{i.title}}</a></h3>
+                </div>
+              </div>
+            </div>
+          </div>  
+          {% endfor %}
+          {% else %}
+          <p class="ml-4">Bu haqida yangilik yo'q !</p>
+          {% endif %}
+          <!-- <div class="col-md-6 col-lg-3 ftco-animate">
             <div class="blog-entry" data-aos-delay="100">
               <a href="blog-single" class="block-20" style="background-image: url('{% static 'images/image_2.jpg' %}');">
               </a>
@@ -146,19 +178,25 @@
 	              </div>
               </div>
             </div>
-          </div>
+          </div> -->
     		</div>
     		<div class="row no-gutters my-5">
           <div class="col text-center">
             <div class="block-27">
               <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
+			  	      {% if posts.has_previous %}
+                  <li><a href="?page={{ posts.previous_page_number }}">&lt;</a></li>
+                {% endif %}
+                {% for i in posts.paginator.page_range %}
+                  {% if posts.number == i %}
+                    <li class="active"><span>{{ i }}</span></li>
+                  {% elif i > announcements.number|add:'-2' and i < announcements.number|add:'2' %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if posts.has_next %}
+                  <li><a href="?page={{ posts.next_page_number }}">&gt;</a></li>
+                {% endif %}
               </ul>
             </div>
           </div>

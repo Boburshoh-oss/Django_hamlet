@@ -191,7 +191,7 @@
 							<div class="text">
 								<span>{{i.type}}</span>
 								{% for o in user %}
-								<h3><a href="properties">{{o.username}} {{o.last_name}}<br>{{i.date}}</a></h3>
+								<h3><a href="{% url 'properties-single' i.id %}">{{o.username}} {{o.last_name}}<br>{{i.date}}</a></h3>
 								{%endfor%}
 							</div>
 						</div>
